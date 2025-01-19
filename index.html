@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" type="image/svg+xml" href="/avalanche.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Have Fund</title>
+  </head>
+
+  <body>
+    <div id="page-loading">Loading...</div>
+
+    <div class="hidden" id="page-instruction">Instruction...</div>
+
+    <div class="hidden" id="page-open">
+      <h3>У вас на счету</h3>
+      <p>Долларов (<span id="open-dollar-symbol"></span>): <span id="open-dollar-amount"></span></p>
+      <p>Акций фонда (<span id="open-token-symbol"></span>): <span id="open-token-amount"></span></p>
+      <h4>Цена</h4>
+      <p>1 <span id="open-token-price-symbol"></span> = <span id="open-price"></span> <span id="open-dollar-price-symbol"></span></p>
+      <hr>
+      <h3>Купить акции</h3>
+      <hr>
+      <h3>Продать акции</h3>
+
+      <label>
+        <span>Количество акций</span>
+        <input id="input-sell" type="number" inputmode="decimal">
+        <button id="button-sell">Продать</button>
+      </label>
+    </div>
+
+    <div class="hidden" id="page-close">Fund is closed</div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
