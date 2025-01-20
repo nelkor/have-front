@@ -21,17 +21,34 @@
       <p>1 <span id="open-token-price-symbol"></span> = <span id="open-price"></span> <span id="open-dollar-price-symbol"></span></p>
       <hr>
       <h3>Купить акции</h3>
+
+      <label class="block">
+        <span>Разрешить трату</span>
+        <input id="input-approve" type="number" inputmode="decimal">
+        <button id="button-approve">Разрешить</button>
+      </label>
+
+      <label class="block">
+        <span>Купить</span>
+        <input id="input-buy" type="number" inputmode="decimal">
+        <button id="button-buy">Купить</button>
+      </label>
+
       <hr>
       <h3>Продать акции</h3>
 
-      <label>
+      <label class="block">
         <span>Количество акций</span>
         <input id="input-sell" type="number" inputmode="decimal">
         <button id="button-sell">Продать</button>
       </label>
     </div>
 
-    <div class="hidden" id="page-close">Fund is closed</div>
+    <div class="hidden" id="page-close">
+      <h3>Закрытый период</h3>
+      <p>У вас на счету <span id="close-token-amount"></span> <span id="close-token-symbol"></span></p>
+      <p>Цена прошлого открытого периода: $<span id="close-price"></span></p>
+    </div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

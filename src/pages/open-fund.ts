@@ -9,6 +9,10 @@ const tokenPriceSymbolSpan = document.querySelector('#open-token-price-symbol') 
 const priceSpan = document.querySelector('#open-price') as HTMLElement
 const sellInput = document.querySelector('#input-sell') as HTMLInputElement
 const sellButton = document.querySelector('#button-sell') as HTMLButtonElement
+const approveInput = document.querySelector('#input-approve') as HTMLInputElement
+const approveButton = document.querySelector('#button-approve') as HTMLButtonElement
+const buyInput = document.querySelector('#input-buy') as HTMLInputElement
+const buyButton = document.querySelector('#button-buy') as HTMLButtonElement
 
 const renderBalance = (connection: BlockchainConnection) => Promise.all([
   connection.getDollarBalance(),
@@ -46,6 +50,60 @@ const createSellHandler = (connection: BlockchainConnection) => () => {
   })
 }
 
+const createApproveHandler = (connection: BlockchainConnection) => () => {
+  const amount = Number(approveInput.value)
+  const stringAmount = amount.toString()
+
+  if (stringAmount !== approveInput.value) {
+    alert('Неверный формат числа')
+
+    approveInput.value = ''
+  }
+
+  approveInput.disabled = true
+  approveButton.disabled = true
+
+  connection.approveDollar(stringAmount).then(success => {
+    approveInput.value = ''
+    approveInput.disabled = false
+    approveButton.disabled = false
+
+    if (success) {
+      alert('Разрешение успешно выдано!')
+    } else {
+      alert('Попытка выдать разрешение завершилась неудачей')
+    }
+  })
+}
+
+const createBuyHandler = (connection: BlockchainConnection) => () => {
+  const amount = Number(buyInput.value)
+  const stringAmount = amount.toString()
+
+  if (stringAmount !== buyInput.value) {
+    alert('Неверный формат числа')
+
+    buyInput.value = ''
+  }
+
+  buyInput.disabled = true
+  buyButton.disabled = true
+
+  connection.buy(stringAmount).then(success => {
+    buyInput.value = ''
+    buyInput.disabled = false
+    buyButton.disabled = false
+
+    if (success) {
+      void renderBalance(connection)
+
+      alert('Акции успешно куплены!')
+    } else {
+      alert('Попытка покупки акций завершилась неудачей')
+    }
+  })
+}
+
 export const initOpenFund = (connection: BlockchainConnection) => {
   Object.defineProperty(window, 'connection', { value: connection })
 
@@ -57,5 +115,7 @@ export const initOpenFund = (connection: BlockchainConnection) => {
 
   void renderBalance(connection)
 
+  buyButton.addEventListener('click', createBuyHandler(connection))
   sellButton.addEventListener('click', createSellHandler(connection))
+  approveButton.addEventListener('click', createApproveHandler(connection))
 }
